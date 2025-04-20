@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Gunjan 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      background: black;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slideshow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      animation: fade 64s infinite;
+      opacity: 0;
+    }
+
+    /* 👇👇 Replace these URLs with your actual image links */
+    .slide:nth-child(1) { background-image: url('https://example.com/img1.jpg'); animation-delay: 0s; }
+    .slide:nth-child(2) { background-image: url('https://example.com/img2.jpg'); animation-delay: 8s; }
+    .slide:nth-child(3) { background-image: url('https://example.com/img3.jpg'); animation-delay: 16s; }
+    .slide:nth-child(4) { background-image: url('https://example.com/img4.jpg'); animation-delay: 24s; }
+    .slide:nth-child(5) { background-image: url('https://example.com/img5.jpg'); animation-delay: 32s; }
+    .slide:nth-child(6) { background-image: url('https://example.com/img6.jpg'); animation-delay: 40s; }
+    .slide:nth-child(7) { background-image: url('https://example.com/img7.jpg'); animation-delay: 48s; }
+    .slide:nth-child(8) { background-image: url('https://example.com/img8.jpg'); animation-delay: 56s; }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      20% { opacity: 1; }
+      25% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(255, 192, 203, 0.3);
+      backdrop-filter: blur(2px);
+      z-index: -1;
+    }
+
+    .box {
+      max-width: 600px;
+      margin: auto;
+      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+    }
+
+    input, button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin: 20px 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      background-color: white;
+      color: #ff1493;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ffe6f0;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🖼️ Slideshow background -->
+  <div class="slideshow">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+
+  <!-- 🎵 Music -->
+  <audio id="bgMusic" src="Kamlee.mp3" autoplay loop></audio>
+
+  <!-- 📦 Chatbox content -->
+  <div class="box" id="chatBox">
+    <div id="step1">Hey Gunjan! ❤️<br><br>Kaisi ho?</div>
+    <input type="text" id="input1" placeholder="Apna jawab yahan likho..." />
+    <br><button onclick="nextStep(1)">Next</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+
+    function nextStep(step) {
+      if (step === 1) {
+        const ans1 = document.getElementById("input1").value;
+        chatBox.innerHTML = ` 
+          <div>Nice 😄<br><br>Toh batao aaj ka din kaisa gaya?</div>
+          <input type="text" id="input2" placeholder="Yahan likho..." />
+          <br><button onclick="nextStep(2)">Next</button>
+        `;
+      }
+      else if (step === 2) {
+        const ans2 = document.getElementById("input2").value;
+        chatBox.innerHTML = `
+          <div>Achha... Ek chhoti si game kheloge? 💖</div>
+          <br><button onclick="startGame()">Yes, let's go!</button>
+        `;
+      }
+    }
+
+    function startGame() {
+      chatBox.innerHTML = `
+        <div>Let's start the fun quiz! 🎉</div>
+        <br><button onclick="showQuestion(0)">Start</button>
+      `;
+    }
+
+    const questions = [
+      "What's your favorite movie genre?",
+      "Do you prefer tea or coffee?",
+      "Which color suits you best?",
+      "Beach or mountains?",
+      "Morning or night person?",
+      "What’s your dream travel place?",
+      "Favourite type of music?",
+      "Books or movies?",
+      "One word that describes you?",
+      "Would you rather fly or be invisible?"
+    ];
+    const optionsList = [
+      ["Romance", "Action", "Comedy", "Horror"],
+      ["Tea", "Coffee"],
+      ["Red", "Blue", "Pink", "Black"],
+      ["Beach", "Mountains"],
+      ["Morning", "Night"],
+      ["Paris", "Maldives", "Manali", "Tokyo"],
+      ["Pop", "Classical", "Rock", "Lo-Fi"],
+      ["Books", "Movies"],
+      ["Smart", "Funny", "Kind", "Creative"],
+      ["Fly", "Invisible"]
+    ];
+
+    function showQuestion(i) {
+      if (i >= questions.length) {
+        showFinal();
+        return;
+      }
+
+      chatBox.innerHTML = `<div>${questions[i]}</div><br>`;
+      optionsList[i].forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => showQuestion(i + 1);
+        chatBox.appendChild(btn);
+      });
+    }
+
+    function showFinal() {
+      chatBox.innerHTML = `
+        <div>Yayyy! 🎉 Quiz complete.<br><br>
+        Thanks Gunjan, you made this page super cute! 💕</div><br>
+        <div>Gunjan, tumhe maza aaya kya?</div><br>
+        <button onclick="alert('Yay! Mujhe bhi 😍')">Yes 😄</button>
+        <button onclick="alert('Bahut zyada! 💖')">Bahut zyada! 😍</button>
+      `;
+    }
+
+    // For autoplay to work
+    window.addEventListener('click', () => {
+      document.getElementById("bgMusic").play();
+    });
+  </script>
+
+</body>
+</html>
